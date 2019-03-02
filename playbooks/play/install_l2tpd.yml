@@ -1,0 +1,16 @@
+---
+- hosts: nodes
+
+  become: true
+
+  tasks:
+    - name: Install L2TP components
+      yum:
+        name: 
+          - openswan
+          - xl2tpd
+          - ppp
+          - lsof
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
