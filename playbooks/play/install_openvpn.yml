@@ -1,0 +1,15 @@
+---
+- hosts: nodes
+
+  become: true
+
+  tasks:
+    - name: Install OpenVPN
+      yum:
+        name: 
+          - openvpn 
+          - easy-rsa
+          - iptables-services
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
