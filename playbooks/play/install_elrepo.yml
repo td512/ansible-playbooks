@@ -1,0 +1,14 @@
+---
+- hosts: nodes
+
+  become: true
+
+  tasks:
+    - name: Install ELRepo
+      yum:
+        name: https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+        state: latest
+        update_cache: yes
+
+    - name: Enable ELRepo-kernel by default
+      shell: yum-config-manager --enable elrepo-kernel
