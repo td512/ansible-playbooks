@@ -1,0 +1,11 @@
+---
+- hosts: nodes
+
+  become: true
+
+  tasks:
+    - name: Install Mainline Kernel
+      yum:
+        name: kernel-ml
+        state: latest
+        update_cache: yes
