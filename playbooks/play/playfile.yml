@@ -1,7 +1,0 @@
----
-- import_playbook: update.yml
-- import_playbook: install_epel.yml
-- import_playbook: install_l2tpd.yml
-- import_playbook: net_forward.yml
-- import_playbook: install_openvpn.yml
-

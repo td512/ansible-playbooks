@@ -1,0 +1,9 @@
+---
+- import_playbook: update.yml
+- import_playbook: install_epel.yml
+- import_playbook: install_elrepo.yml
+- import_playbook: install_linux-ro.yml
+- import_playbook: install_latest_kernel.yml
+- import_playbook: install_docker.yml
+- import_playbook: install_kvm.yml
+- import_playbook: harden_ssh.yml
