@@ -1,0 +1,32 @@
+---
+- hosts: nodes
+
+  become: true
+
+  tasks:
+    - name: Install QEMU-KVM and Libvirt
+      yum:
+        name: 
+        - qemu-kvm 
+        - libvirt 
+        - libvirt-python 
+        - libguestfs-tools 
+        - virt-install
+        state: latest
+        update_cache: yes
+
+    - name: Enable and Start Libvirt
+      systemd:
+        state: started
+        enabled: yes
+        name: libvirtd
+
+    - name: Install X Window Components
+      yum:
+        name:
+        - "@X Window System" 
+        - xorg-x11-xauth 
+        - "xorg-x11-fonts-*" 
+        - xorg-x11-utils
+        state: latest
+        update_cache: yes
