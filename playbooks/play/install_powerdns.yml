@@ -1,0 +1,75 @@
+---
+- hosts: nodes
+
+  become: true
+
+  tasks:
+    - name: Install EPEL and IUS
+      yum:
+        name: 
+          - epel-release
+          - https://repo.ius.io/ius-release-el7.rpm
+        state: latest
+        update_cache: yes
+      become: yes
+
+    - name: Install PowerDNS and PostgreSQL backend
+      yum:
+       name:
+         - pdns-backend-postgresql
+         - pdns-backend-geoip
+       state: latest
+       update_cache: yes
+      become: yes
+
+    - name: Install Python 3.6
+      yum:
+       name:
+          - python36u 
+          - python36u-devel 
+          - python36u-pip
+       state: latest
+       update_cache: yes
+      become: yes
+
+    - name: Install PostgreSQL Libraries
+      yum:
+       name: postgresql-libs 
+       state: latest
+       update_cache: yes
+      become: yes
+
+    - name: Install PowerDNS Admin Build Packages
+      yum:
+       name:
+          - gcc
+          - openldap-devel
+          - xmlsec1-devel
+          - xmlsec1-openssl
+          - libtool-ltdl-devel
+          - git
+       state: latest
+       update_cache: yes
+      become: yes
+
+    - name: Install Node.JS
+      shell: |
+        curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+        curl -sL https://dl.yarnpkg.com/rpm/yarn.repo -o /etc/yum.repos.d/yarn.repo
+      become: yes
+
+    - name: Install Yarn
+      yum:
+       name: yarn
+       state: latest
+       update_cache: yes
+      become: yes
+
+    - name: Stage PowerDNS Admin Directory
+      file:
+        path: /opt/web
+        state: directory
+
+    - name: Clone PowerDNS Admin
+      command: git clone https://github.com/ngoduykhanh/PowerDNS-Admin.git /opt/web/powerdns-admin
+      become: yes
